@@ -19,10 +19,26 @@ django-admin startproject hollymovies
 - hollymovies - settings of our project
   - `__init__.py` - necessary to make this directory as module
   - `asgi.py` - we will not use it
-  - `settings.py`
-  - `urls.py`
+  - `settings.py` - settings of our project
+  - `urls.py` - in this file we define url path in our project
   - `wsgi.py` - we will not use it
 
-## Tips for Final project
+## Run server
+Default on port 8000:
+```bash
+python manage.py runserver
+```
 
-- all installed modules must be in same version for all team members
+## Tips for Final project
+- for team work:
+  - one member of the team creates project
+  - this member creates git repository and share with other members (settings -> Collaborators -> Add people...)
+  - other members makes git clone
+  - all members must have same settings of identation in Pycharm
+- in the path of project files should not be spaces nor diacritics
+- all installed modules must be in same version for all team members (file requirements.txt)
+  ```bash
+  pip freeze > requirements.txt
+  ```
+- `settings.py` - move SECRET_KEY to file ignored by git
+- 
