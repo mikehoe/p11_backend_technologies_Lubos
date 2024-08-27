@@ -12,7 +12,7 @@ pip freeze > requirements.txt
 
 Create Django project
 ```bash
-django-admin startproject hollymovies
+django-admin startproject hollymovies .
 ```
 
 ## Project structure
@@ -28,6 +28,26 @@ Default on port 8000:
 ```bash
 python manage.py runserver
 ```
+
+We can change port number:
+```bash
+python manage.py runserver 8001
+```
+
+## Start new application
+```bash
+python manage.py startapp viewer
+```
+- viewer - our first application
+  - migration - directory with migrations scripts (changes in database)
+  - `__init__.py` - necessary to make this directory as module
+  - `admin.py` - settings of administration panel
+  - `apps.py` - applications
+  - `models.py` - IMPORTANT - includes definition of models in database
+  - `tests.py` - tests
+  - `views.py` - IMPORTANT - includes views (business logic)
+
+## Registration 
 
 ## Tips for Final project
 - for team work:
