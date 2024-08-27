@@ -41,4 +41,10 @@ python manage.py runserver
   pip freeze > requirements.txt
   ```
 - `settings.py` - move SECRET_KEY to file ignored by git
-- 
+- working with GIT:
+  - from master create new branch `develop`
+  - from `develop` create new branches for new features/tests/...
+  - if all changes in working branch has been done, merge changes to `develop`
+  - in branch `develop` run tests
+  - if all tests passes merge all changes to `master`
+  - in `master` do not make any changes, just merge
