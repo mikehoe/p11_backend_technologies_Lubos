@@ -55,6 +55,19 @@ In file `./holymovies/settings.py` add application to the list `INSTALLED_APPS`
 ### Database (`models`)
 TODO: ER diagram
 
+### Migration of database
+In case of any change of our model (in `models.py` file), we must make migration.
+It has two steps:
+1. We generate migration script (`viewer/migrations`):
+```bash
+python manage.py makemigrations
+```
+
+2. We make changes in database:
+```bash
+python manage.py migrate
+```
+
 ## Tips for Final project
 - for team work:
   - one member of the team creates project

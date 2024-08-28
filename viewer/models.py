@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Model, CharField
 
 # Create your models here.
 """ Models
@@ -46,3 +47,13 @@ Review
 - review: string
 - rating: int (0-100)
 """
+
+
+class Genre(Model):
+    name = CharField(max_length=20)
+
+    def __repr__(self):
+        return f"Genre(name={self.name})"
+
+    def __str__(self):
+        return f"{self.name}"
