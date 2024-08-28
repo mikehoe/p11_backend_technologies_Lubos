@@ -50,6 +50,10 @@ python manage.py startapp viewer
 ## Registration of new application
 In file `./holymovies/settings.py` add application to the list `INSTALLED_APPS`
 
+## Application `viewer`
+
+### Database (`models`)
+
 ## Tips for Final project
 - for team work:
   - one member of the team creates project
