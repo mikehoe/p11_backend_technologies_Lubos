@@ -53,7 +53,32 @@ In file `./holymovies/settings.py` add application to the list `INSTALLED_APPS`
 ## Application `viewer`
 
 ### Database (`models`)
-TODO: ER diagram
+We can generate ER diagram in PyCharm PRO:
+![ER Diagram](/files/erd_viewer_PRO.png)
+
+Or we can use extensions:
+- download Graphviz: https://graphviz.org/download/
+- install `pip install graphviz`
+- install `pip install pyparsing pydot`
+- install `pip install django-extensions`
+- add `django_extensions` to `setting.py` to `ÌNSALLED_APPS`
+- to `setting.py` add:
+```python
+GRAPH_MODELS = {
+    'all_applications': True,
+    'graph_models': True
+}
+```
+- run command `python manage.py graph_models -a > ./files/erd.dot`
+- run command `python manage.py graph_models --pydot -a -g -o ./files/erd.png` for the whole project
+- or `python manage.py graph_models viewer --pydot -g -o ./files/erd_viewer.png` for only one application
+  - in `settings.py` will be:
+```python
+GRAPH_MODELS = {
+    'app_labels': ['viewer'],
+}  
+ ```
+![ER diagram](./files/erd_viewer.png)
 
 ### Migration of database
 In case of any change of our model (in `models.py` file), we must make migration.
@@ -67,6 +92,27 @@ python manage.py makemigrations
 ```bash
 python manage.py migrate
 ```
+
+### DUMP/LOAD database
+Export of database:
+```bash
+pip install django-dump-load-utf8
+```
+
+Add `django_dump_load_utf8` to `INSTALLED_APPS` in `setting.py`.
+
+DUMP:
+```bash
+python manage.py dumpdatautf8 viewer --output ./files/fixtures.json
+```
+
+LOAD:
+```bash
+python manage.py loaddatautf8 ./files/fixtures.json
+```
+
+## Administration panel
+We must create superuser: `python manage.py createsuperuser`
 
 ## Tips for Final project
 - for team work:
@@ -87,3 +133,8 @@ python manage.py migrate
   - in branch `develop` run tests
   - if all tests passes merge all changes to `master`
   - in `master` don't make any changes, just merge
+- create `readme.md` file
+  - includes project title
+  - project description
+  - (optional) ER diagram
+  - (optional) screenshots
