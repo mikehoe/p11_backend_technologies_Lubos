@@ -54,7 +54,7 @@ In file `./holymovies/settings.py` add application to the list `INSTALLED_APPS`
 
 ### Database (`models`)
 We can generate ER diagram in PyCharm PRO:
-![ER Diagram](/files/erd_viewer_PRO.png)
+![ER Diagram](/files/ER_diagram.png)
 
 Or we can use extensions:
 - download Graphviz: https://graphviz.org/download/
@@ -113,6 +113,82 @@ python manage.py loaddatautf8 ./files/fixtures.json
 
 ## Administration panel
 We must create superuser: `python manage.py createsuperuser`
+
+## Queries
+### .all()
+Vrací kolekci všech nalezených záznamů z tabulky Movie
+`Movie.objects.all()`  
+
+### .get()
+Vrátí jeden nalezený záznam (první, který splňuje podmínky).
+`Movie.objects.get(pk=1)`
+
+### .filter()
+Vrací kolekci záznamů, které splňují podmínky),
+`Movie.objects.filter(pk=1)`
+
+`Movie.objects.filter(title_orig="The Green Mile")`
+
+`Movie.objects.filter(released=1995)`
+
+`Movie.objects.filter(released__gt=1990)` -- `__gt` => "větší než" (greater then)
+
+`Movie.objects.filter(released__gte=1990)` -- `__gte` => "větší rovno" (greater then equal)
+
+`Movie.objects.filter(released__lt=1990)` -- `__lt` => "menší než" (less then)
+
+`Movie.objects.filter(released__lte=1990)` -- `__lte` => "menší rovno" (less then equal)
+
+`drama = Genre.objects.get(name="Drama")`
+
+`Movie.objects.filter(genres=drama)`
+
+`Movie.objects.filter(genres=Genre.objects.get(name="Drama"))`
+
+`Movie.objects.filter(genres__name="Drama")`
+
+`Movie.objects.filter(title_orig__contains="Gump")`
+
+`Movie.objects.filter(title_orig__in=["Forrest Gump", "Se7en"])`
+
+`Movie.objects.filter(released=1995)`
+
+`Movie.objects.exclude(released=1995)`
+
+Test, zda daný záznam existuje:
+`Movie.objects.filter(released=1995).exists()`
+
+Spočítáme počet vyhovujících záznamů:
+`Movie.objects.filter(released=1994).count()`
+
+Uspořádání výsledků podle:
+`Movie.objects.all()`
+
+`Movie.objects.all().order_by('released')` -- uspořádání vzestupně
+
+`Movie.objects.all().order_by('-released')` -- uspořádání sestupně
+
+## Data manipulation
+
+### CREATE
+`Genre.objects.create(name='Dokumentární')`
+
+```python
+genre = Genre(name='Sci-fi')  # create object in Python
+genre.save()                  # put it in the database
+```
+
+### UPDATE
+` Movie.objects.filter(pk=5).update(rating=90)`
+
+```python
+movie = Movie.objects.get(pk=5)
+movie.rating = 92
+movie.save()
+```
+
+### DELETE
+`Genre.objects.filter(name='Dokumentární').delete()`
 
 ## Tips for Final project
 - for team work:
