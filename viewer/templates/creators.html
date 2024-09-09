@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Tvůrci</h1>
+  <ul>
+    {% for creator in creators %}
+      <li>{{ creator }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
