@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to HollyMovies</title>
+</head>
+<body>
+    <h1>Welcome to HollyMovies!</h1>
+        <ul>
+        {% for adjective in adjectives %}
+            <li>{{ adjective }}</li>
+        {% endfor %}
+        </ul>
+</body>
+</html>
