@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ movie.title_orig }}</h1>
+<div class="movie-title-cz">{{ movie.title_cz }} </div>
+<div class="movie-details">
+    <div class="movie-genres">
+        <strong>Žánry:</strong>
+        {% for genre in movie.genres.all %}
+            {{ genre }}{% if not forloop.last %},{% endif %}
+        {% empty %}
+            Tento film nemá žádný žánr.
+        {% endfor %}
+    </div>
+
+    <div class="movie-coutries">
+        <strong>Země:</strong>
+        {% for country in movie.countries.all %}
+            {{ country }}{% if not forloop.last %},{% endif %}
+        {% empty %}
+            Tento film nemá žádnou zemi.
+        {% endfor %}
+    </div>
+
+    <div class="movie-directors">
+        <strong>Režie:</strong>
+        {% for creator in movie.directors.all %}
+            {{ creator }}{% if not forloop.last %},{% endif %}
+        {% empty %}
+            Tento film nemá žádného režiséra.
+        {% endfor %}
+    </div>
+
+    <div class="movie-actors">
+        <strong>Hrají:</strong>
+        {% for creator in movie.actors.all %}
+            {{ creator }}{% if not forloop.last %},{% endif %}
+        {% empty %}
+            Tento film nemá žádného herce.
+        {% endfor %}
+    </div>
+
+    <div class="movie-length">
+        <strong>Délka:</strong> {{ movie.length_format }}
+    </div>
+
+    <div class="movie-released">
+        <strong>Rok:</strong> {{ movie.released }}
+    </div>
+
+    <div class="movie-rating">
+        <strong>Hodnocení:</strong> {{ movie.rating }}
+    </div>
+
+    <div class="movie-description">
+        <strong>Popis:</strong> {{ movie.description }}
+    </div>
+</div>
+{% endblock %}

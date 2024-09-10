@@ -14,6 +14,14 @@ def movies(request):
     return render(request, 'movies.html', context)
 
 
+def movie(request, pk):
+    if Movie.objects.filter(id=pk).exists():
+        movie_ = Movie.objects.get(id=pk)
+        context = {'movie': movie_}
+        return render(request, 'movie.html', context)
+    return movies(request)
+
+
 def creators(request):
     creators_list = Creator.objects.all()
     context = {'creators': creators_list}
