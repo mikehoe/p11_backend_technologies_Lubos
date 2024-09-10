@@ -25,7 +25,7 @@
     <div class="movie-directors">
         <strong>Režie:</strong>
         {% for creator in movie.directors.all %}
-            {{ creator }}{% if not forloop.last %},{% endif %}
+            <a href="{% url 'creator' creator.id %}">{{ creator }}</a>{% if not forloop.last %},{% endif %}
         {% empty %}
             Tento film nemá žádného režiséra.
         {% endfor %}
@@ -34,7 +34,7 @@
     <div class="movie-actors">
         <strong>Hrají:</strong>
         {% for creator in movie.actors.all %}
-            {{ creator }}{% if not forloop.last %},{% endif %}
+            <a href="{% url 'creator' creator.id %}">{{ creator }}</a>{% if not forloop.last %},{% endif %}
         {% empty %}
             Tento film nemá žádného herce.
         {% endfor %}

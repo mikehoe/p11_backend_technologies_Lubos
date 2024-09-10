@@ -2,9 +2,9 @@
 
 {% block content %}
 <h1>Tvůrci</h1>
-  <ul>
+    <ul>
     {% for creator in creators %}
-      <li>{{ creator }}</li>
+        <li><a href="{% url 'creator' creator.id %}">{{ creator }}</a></li>
     {% endfor %}
-  </ul>
+    </ul>
 {% endblock %}
