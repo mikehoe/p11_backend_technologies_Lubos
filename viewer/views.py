@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import TemplateView, ListView
 
@@ -39,7 +40,7 @@ class MoviesListView(ListView):
     # můžeme to přejmenovat:
     context_object_name = 'movies'
 
-    # pokud bych potřeboval jen nějakou podmnožinu dat (filtr), lze předefinovat context data:
+    #pokud bych potřeboval jen nějakou podmnožinu dat (filtr), lze předefinovat context data:
     # pokud chci pouze Krimi filmy:
     """def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,12 +49,19 @@ class MoviesListView(ListView):
         context['movies'] = crime_movies
         return context"""
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        genres = Genre.objects.all()
+        context['genres'] = genres
+        context['movies'] = Movie.objects.all()
+        return context
+
 
 def movie(request, pk):
     if Movie.objects.filter(id=pk).exists():
         movie_ = Movie.objects.get(id=pk)
         context = {'movie': movie_}
-        # print(movie_)
+        #print(movie_)
         return render(request, "movie.html", context)
     return movies(request)
 
@@ -86,4 +94,13 @@ def creator(request, pk):
     if Creator.objects.filter(id=pk).exists():
         creator_ = Creator.objects.get(id=pk)
         return render(request, "creator.html", {'creator': creator_})
-    return redirect("creators")
+    return redirect('creators')
+
+
+class GenreView(View):
+    def get(self, request, pk):
+        genres = Genre.objects.all()
+        genre = Genre.objects.get(id=pk)
+        movies = Movie.objects.filter(genres__id=pk)
+        context = {'genres': genres, 'genre': genre, 'movies': movies}
+        return render(request, "movies.html", context)

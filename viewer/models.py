@@ -1,4 +1,5 @@
-from django.db import models
+from datetime import date
+
 from django.db.models import Model, CharField, DateField, ForeignKey, SET_NULL, TextField, ManyToManyField, \
     IntegerField, FloatField, DateTimeField
 
@@ -99,6 +100,15 @@ class Creator(Model):
     def __str__(self):
         return f"{self.name} {self.surname}"
 
+    def age(self):
+        if self.date_of_birth:
+            end_date = date.today()
+            if self.date_of_death:
+                end_date = self.date_of_death
+            return (end_date.year - self.date_of_birth.year -
+                    ((end_date.month, end_date.day) < (self.date_of_birth.month, self.date_of_birth.day)))
+        return None
+
 
 class Movie(Model):
     title_orig = CharField(max_length=150, null=False, blank=False)
@@ -123,13 +133,13 @@ class Movie(Model):
     def __str__(self):
         return f"{self.title_orig} ({self.released})"
 
-
     def length_format(self):
         hours = self.length // 60
         minutes = self.length % 60
         if minutes < 10:
             minutes = f"0{minutes}"
         return f"{hours}h {minutes}min"
+
 
 # TODO: Review
 """
