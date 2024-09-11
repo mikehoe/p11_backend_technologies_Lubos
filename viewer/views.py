@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, ListView, FormView
 
 from logging import getLogger
 
-from viewer.forms import CreatorForm
+from viewer.forms import CreatorForm, CreatorModelForm
 from viewer.models import Movie, Creator, Genre, Country
 
 LOGGER = getLogger()
@@ -105,7 +105,8 @@ def creator(request, pk):
 
 class CreatorCreateView(FormView):
     template_name = 'form.html'
-    form_class = CreatorForm
+    #form_class = CreatorForm
+    form_class = CreatorModelForm
     success_url = reverse_lazy('creators')
 
     def form_valid(self, form):
