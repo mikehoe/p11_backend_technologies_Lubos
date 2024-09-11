@@ -4,7 +4,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import TemplateView, ListView
 
-from viewer.models import Movie, Creator, Genre
+from viewer.models import Movie, Creator, Genre, Country
 
 
 def home(request):
@@ -53,6 +53,7 @@ class MoviesListView(ListView):
         context = super().get_context_data(**kwargs)
         genres = Genre.objects.all()
         context['genres'] = genres
+        context['countries'] = Country.objects.all()
         context['movies'] = Movie.objects.all()
         return context
 
@@ -102,5 +103,18 @@ class GenreView(View):
         genres = Genre.objects.all()
         genre = Genre.objects.get(id=pk)
         movies = Movie.objects.filter(genres__id=pk)
-        context = {'genres': genres, 'genre': genre, 'movies': movies}
+        countries = Country.objects.all()
+        context = {'genres': genres, 'genre': genre, 'movies': movies,
+                   'countries': countries}
         return render(request, "movies.html", context)
+
+
+class CountryView(View):
+    def get(self, request, pk):
+        genres = Genre.objects.all()
+        countries = Country.objects.all()
+        country = Country.objects.get(id=pk)
+        movies = Movie.objects.filter(countries=country)
+        context = {'genres': genres, 'countries': countries, 'movies': movies, 'country': country}
+        return render(request, "movies.html", context)
+
