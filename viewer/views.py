@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import TemplateView, ListView, FormView
+from django.views.generic import TemplateView, ListView, FormView, CreateView, UpdateView, DeleteView
 
 from logging import getLogger
 
@@ -103,6 +103,7 @@ def creator(request, pk):
     return redirect('creators')
 
 
+"""
 class CreatorCreateView(FormView):
     template_name = 'form.html'
     form_class = CreatorModelForm
@@ -131,6 +132,35 @@ class CreatorCreateView(FormView):
     def form_invalid(self, form):
         LOGGER.warning('User provided invalid data.')
         return super().form_invalid(form)
+"""
+
+
+# Nemusíme psát metodu form_valid(), pokud nijak speciálně neupravujeme (nejlepší je to upravit v clean metodach())
+class CreatorCreateView(CreateView):
+    template_name = 'form.html'
+    form_class = CreatorModelForm
+    success_url = reverse_lazy('creators')
+
+    def form_invalid(self, form):
+        LOGGER.warning('User provided invalid data.')
+        return super().form_invalid(form)
+
+
+class CreatorUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = CreatorModelForm
+    success_url = reverse_lazy('creators')
+    model = Creator
+
+    def form_invalid(self, form):
+        LOGGER.warning('User provided invalid data.')
+        return super().form_invalid(form)
+
+
+class CreatorDeleteView(DeleteView):
+    template_name = 'confirm_delete.html'
+    model = Creator
+    success_url = reverse_lazy('creators')
 
 
 class GenreView(View):

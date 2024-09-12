@@ -3,9 +3,13 @@
 {% block content %}
     Filtr: všichni, herci, režiséři
     <h1>Tvůrci</h1>
-        <ul>
+    <ul>
         {% for creator in creators %}
-            <li><a href="{% url 'creator' creator.id %}">{{ creator }}</a></li>
+            <li>
+                <a href="{% url 'creator' creator.id %}">{{ creator }}</a>
+                <a href="{% url 'creator_update' creator.id %}">✎</a>
+                <a href="{% url 'creator_delete' creator.id %}">✖</a>
+            </li>
         {% endfor %}
-        </ul>
+    </ul>
 {% endblock %}

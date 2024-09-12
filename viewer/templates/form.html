@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <h1>Přidání tvůrce</h1>
-    {% comment %}{{ form }}{% endcomment %}
-    <table>{{ form.as_table }}</table>
-    {% comment %}{{ form.as_p }}{% endcomment %}
-    {% comment %}<ul>{{ form.as_ul }}</ul>{% endcomment %}
-    <input id="id_submit" type="submit" value="Uložit" class="btn btn-primary">
-</form>
+    <form method="POST">
+        {% csrf_token %}
+        <h1>Přidání tvůrce</h1>
+        {% comment %}{{ form }}{% endcomment %}
+        <table>{{ form.as_table }}</table>
+        {% comment %}{{ form.as_p }}{% endcomment %}
+        {% comment %}<ul>{{ form.as_ul }}</ul>{% endcomment %}
+        <input id="id_submit" type="submit" value="Uložit" class="btn btn-primary">
+        <input type="button" value="Zpět" class="btn btn-primary" onclick="javascript:history.back()">
+    </form>
 {% endblock %}

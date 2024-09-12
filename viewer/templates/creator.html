@@ -1,40 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ creator.name }} {{ creator.surname }}</h1>
-<div class="creator-details">
-    <div class="creator-birthdate">
-        <strong>Narození:</strong>
-        {{ creator.date_of_birth }}
-        ({{ creator.country_of_birth }})
-        věk: {{ creator.age }}
-    </div>
+    <h1>{{ creator.name }} {{ creator.surname }}</h1>
+    <div class="creator-details">
+        <div class="creator-birthdate">
+            <strong>Narození:</strong>
+            {{ creator.date_of_birth }}
+            ({{ creator.country_of_birth }})
+            věk: {{ creator.age }}
+        </div>
 
-    <div class="creator-deathdate">
-        {% if creator.date_of_death %}
-            <strong>Úmrtí:</strong>
-            {{ creator.date_of_death }}
-            ({{ creator.country_of_death }})
+        <div class="creator-deathdate">
+            {% if creator.date_of_death %}
+                <strong>Úmrtí:</strong>
+                {{ creator.date_of_death }}
+                ({{ creator.country_of_death }})
+            {% endif %}
+        </div>
+
+        {% if creator.directing.all %}
+            <strong>Režisér:</strong>
+            {% for movie in creator.directing.all %}
+                <a href="{% url 'movie' movie.id %}">{{ movie }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
         {% endif %}
+
+        {% if creator.acting.all %}
+            <strong>Herec:</strong>
+            {% for movie in creator.acting.all %}
+                <a href="{% url 'movie' movie.id %}">{{ movie }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <div class="creator-biography">
+            <strong>Biografie:</strong><br>
+            {{ creator.biography }}
+        </div>
+
+        <a href="{% url 'creator_update' creator.id %}" class="btn btn-primary">Aktualizovat</a>
+        <a href="{% url 'creator_delete' creator.id %}" class="btn btn-danger">Smazat</a>
+        <input type="button" value="Zpět" class="btn btn-primary" onclick="javascript:history.back()">
     </div>
-
-    {% if creator.directing.all %}
-        <strong>Režisér:</strong>
-        {% for movie in creator.directing.all %}
-            <a href="{% url 'movie' movie.id %}">{{ movie }}</a>{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    {% endif %}
-
-    {% if creator.acting.all %}
-        <strong>Herec:</strong>
-        {% for movie in creator.acting.all %}
-            <a href="{% url 'movie' movie.id %}">{{ movie }}</a>{% if not forloop.last %},{% endif %}
-        {% endfor %}
-    {% endif %}
-
-    <div class="creator-biography">
-        <strong>Biografie:</strong><br>
-        {{ creator.biography }}
-    </div>
-</div>
 {% endblock %}

@@ -64,6 +64,8 @@ class CreatorModelForm(ModelForm):
         name = self.cleaned_data.get('name', '')  # Použití .get() s výchozí hodnotou
         if name:
             name = ' '.join([n.capitalize() for n in name.strip().split()])
+        else:
+            name = ''
         print(f"capitalized name: '{name}'")
         return name
 
@@ -73,10 +75,12 @@ class CreatorModelForm(ModelForm):
         surname = self.cleaned_data.get('surname', '')  # Použití .get() s výchozí hodnotou
         if surname:
             surname = surname.strip().capitalize()
+        else:
+            surname = ''
         print(f"capitalized surname: '{surname}'")
         return surname
 
-    # Validace data narození
+    # Validace data narození, nemusí vracet nic, když neupravuje data
     def clean_date_of_birth(self):
         print("Method clean_date_of_birth()")
         date_of_birth = self.cleaned_data.get('date_of_birth')
@@ -84,7 +88,7 @@ class CreatorModelForm(ModelForm):
             raise ValidationError('Lze zadávat datum narození pouze v minulosti')
         return date_of_birth
 
-    # Validace data úmrtí
+    # Validace data úmrtí, nemusí vracet nic, když neupravuje data
     def clean_date_of_death(self):
         print("Method clean_date_of_death()")
         date_of_death = self.cleaned_data.get('date_of_death')
@@ -92,7 +96,7 @@ class CreatorModelForm(ModelForm):
             raise ValidationError('Lze zadávat datum úmrtí pouze v minulosti')
         return date_of_death
 
-    # Validace na úrovni formuláře
+    # Validace na úrovni formuláře, nemusí vracet nic, když neupravuje data
     def clean(self):
         print("Method clean()")
         cleaned_data = super().clean()
