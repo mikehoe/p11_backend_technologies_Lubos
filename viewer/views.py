@@ -1,5 +1,7 @@
 from logging import getLogger
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -48,6 +50,7 @@ class CreatorsListView(ListView):
     context_object_name = 'creators'
 
 
+# @login_required
 def creator(request, pk):
     if Creator.objects.filter(id=pk).exists():
         creator_ = Creator.objects.get(id=pk)
@@ -56,7 +59,7 @@ def creator(request, pk):
 
 
 # Nemusíme psát metodu form_valid(), pokud nijak speciálně neupravujeme (nejlepší je to upravit v clean metodach())
-class CreatorCreateView(CreateView):
+class CreatorCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = CreatorModelForm
     success_url = reverse_lazy('creators')
@@ -66,7 +69,7 @@ class CreatorCreateView(CreateView):
         return super().form_invalid(form)
 
 
-class CreatorUpdateView(UpdateView):
+class CreatorUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CreatorModelForm
     success_url = reverse_lazy('creators')
@@ -77,7 +80,7 @@ class CreatorUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class CreatorDeleteView(DeleteView):
+class CreatorDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Creator
     success_url = reverse_lazy('creators')

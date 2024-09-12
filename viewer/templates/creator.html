@@ -37,8 +37,10 @@
             {{ creator.biography }}
         </div>
 
-        <a href="{% url 'creator_update' creator.id %}" class="btn btn-primary">Aktualizovat</a>
-        <a href="{% url 'creator_delete' creator.id %}" class="btn btn-danger">Smazat</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'creator_update' creator.id %}" class="btn btn-primary">Aktualizovat</a>
+            <a href="{% url 'creator_delete' creator.id %}" class="btn btn-danger">Smazat</a>
+        {% endif %}
         <input type="button" value="Zpět" class="btn btn-primary" onclick="javascript:history.back()">
     </div>
 {% endblock %}

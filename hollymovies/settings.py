@@ -26,7 +26,7 @@ from .secret_key import SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []#['localhost']
 
 
 # Application definition
@@ -130,7 +130,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # my own settings
 GRAPH_MODELS = {
-    'app_labels': ["viewer"],
-    'graph_models': True,
+    #'all_applications': True,
+    'app_labels': ['viewer'],
+    #'graph_models': True,
 }
 
