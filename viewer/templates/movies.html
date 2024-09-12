@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %}
+    Filmy
+{% endblock %}
+
 {% block content %}
     Filtr dle žánru: <a href="{% url 'movies' %}">Všechny</a>,
     {% for genre in genres %}
         {% if genre.movies.count %}
-            <a href="{% url 'genre' genre.id %}">{{ genre }} ({{ genre.movies.count }})</a>{% if not forloop.last %}, {% endif %}
+            <a href="{% url 'genre' genre.id %}">{{ genre }} ({{ genre.movies.count }})</a>{% if not forloop.last %},
+        {% endif %}
         {% endif %}
     {% endfor %}
     <br>
@@ -24,9 +29,9 @@
             země {{ country }}
         {% endif %}
     </h1>
-        <ul>
-            {% for movie in movies %}
-                <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
-            {% endfor %}
-        </ul>
+    <ul>
+        {% for movie in movies %}
+            <li><a href="{% url 'movie' movie.id %}">{{ movie }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}

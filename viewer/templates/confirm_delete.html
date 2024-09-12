@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 
+{% block title %}
+    Smazat záznam
+{% endblock %}
+
 {% block content %}
     <form method="POST">
         {% csrf_token %}
-        <p>Opravdu chceš smazat záznam "{{ object }}" z databáze?</p>
+        <p>Opravdu chceš smazat záznam
+            {% if object.print_to_delete %}
+                "{{ object.print_to_delete }}"
+            {% else %}
+                "{{ object }}"
+            {% endif %}
+            z databáze?</p>
         <input type="submit" value="Smazat" class="btn btn-danger">
-        <input type="button" value="Zpět" class="btn btn-primary" onclick="javascript:history.back()">
+        <input type="button" value="Zpět" class="btn btn-primary" onClick="javascript:history.back()">
     </form>
 {% endblock %}

@@ -17,6 +17,9 @@ class Genre(Model):
     def __str__(self):
         return f"{self.name}"
 
+    def print_to_delete(self):
+        return f"žánr '{self.name}'"
+
 
 class Country(Model):
     name = CharField(max_length=64, null=False, blank=False, unique=True)
@@ -31,6 +34,9 @@ class Country(Model):
 
     def __str__(self):
         return f"{self.name}"
+
+    def print_to_delete(self):
+        return f"země '{self.name}'"
 
 
 class Creator(Model):
@@ -62,6 +68,9 @@ class Creator(Model):
                     ((end_date.month, end_date.day) < (self.date_of_birth.month, self.date_of_birth.day)))
         return None
 
+    def print_to_delete(self):
+        return f"tvůrce '{self.name} {self.surname}'"
+
 
 class Movie(Model):
     title_orig = CharField(max_length=150, null=False, blank=False)
@@ -92,6 +101,9 @@ class Movie(Model):
         if minutes < 10:
             minutes = f"0{minutes}"
         return f"{hours}h {minutes}min"
+
+    def print_to_delete(self):
+        return f"film '{self.title_orig} ({self.released})'"
 
 
 # TODO: Review

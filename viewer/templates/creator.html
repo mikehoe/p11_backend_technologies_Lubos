@@ -1,19 +1,23 @@
 {% extends "base.html" %}
 
+{% block title %}
+    {{ creator.name }} {{ creator.surname }}
+{% endblock %}
+
 {% block content %}
     <h1>{{ creator.name }} {{ creator.surname }}</h1>
     <div class="creator-details">
         <div class="creator-birthdate">
             <strong>Narození:</strong>
-            {{ creator.date_of_birth }}
-            ({{ creator.country_of_birth }})
+            {{ creator.date_of_birth|date:"j. n. Y" }}
+            ({{ creator.country_of_birth }} [{{ creator.country_of_birth.code }}])
             věk: {{ creator.age }}
         </div>
 
         <div class="creator-deathdate">
             {% if creator.date_of_death %}
                 <strong>Úmrtí:</strong>
-                {{ creator.date_of_death }}
+                {{ creator.date_of_death|date:"j. n. Y" }}
                 ({{ creator.country_of_death }})
             {% endif %}
         </div>
