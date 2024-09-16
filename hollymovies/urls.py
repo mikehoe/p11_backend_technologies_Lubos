@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
-from django.urls import path
+from django.urls import path, include
 
+from accounts.views import SignupView, user_logout
 from viewer.views import home, movie, MoviesListView, CreatorsListView, creator, GenreView, CountryView, \
     CreatorCreateView, CreatorUpdateView, CreatorDeleteView
 
@@ -38,5 +39,8 @@ urlpatterns = [
     path('genre/<pk>/', GenreView.as_view(), name='genre'),
     path('country/<pk>/', CountryView.as_view(), name='country'),
 
-    path('accounts/login/', LoginView.as_view(), name='login'),
+    # path('accounts/login/', LoginView.as_view(), name='login'),
+    path('accounts/signup/', SignupView.as_view(), name='signup'),
+    path('accounts/logout/', user_logout, name='logout'),
+    path('accounts/', include('django.contrib.auth.urls')),  # defaultní paths a views z Djanga
 ]

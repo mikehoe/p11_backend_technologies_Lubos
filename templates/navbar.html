@@ -31,8 +31,9 @@
                         {{ user.username }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item text-right" href="#">Odhlásit</a>
-                        <a class="dropdown-item text-right" href="#">Změnit heslo</a>
+                        <a class="dropdown-item text-right" href="{% url 'logout' %}">Odhlásit</a>
+                        <a class="dropdown-item text-right" href="{% url 'password_change' %}">Změnit heslo</a>
+                        <a class="dropdown-item text-right" href="{% url 'password_reset' %}">Resetovat heslo</a>
                     </div>
                 {% else %}
                     <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">
@@ -40,7 +41,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item text-right" href="{% url 'login' %}">Přihlásit</a>
-                        <a class="dropdown-item text-right" href="#">Registrovat</a>
+                        <a class="dropdown-item text-right" href="{% url 'signup' %}">Registrovat</a>
                     </div>
                 {% endif %}
             </div>
