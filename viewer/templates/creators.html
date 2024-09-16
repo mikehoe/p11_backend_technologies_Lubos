@@ -9,8 +9,10 @@
         {% for creator in creators %}
             <li>
                 <a href="{% url 'creator' creator.id %}">{{ creator }}</a>
-                {% if user.is_autheticated %}
+                {% if perms.viewer.change_creator %}
                     <a href="{% url 'creator_update' creator.id %}">✎</a>
+                {% endif %}
+                {% if perms.viewer.delete_creator %}
                     <a href="{% url 'creator_delete' creator.id %}">✖</a>
                 {% endif %}
             </li>

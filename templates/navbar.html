@@ -12,7 +12,10 @@
                 <a class="nav-item nav-link active" href="{% url 'home' %}">Domů</a>
                 <a class="nav-item nav-link active" href="{% url 'movies' %}">Filmy</a>
                 <a class="nav-item nav-link active" href="{% url 'creators' %}">Tvůrci</a>
+                {% comment %}
                 {% if user.is_authenticated %}
+                {% endcomment %}
+                {% if perms.viewer.add_creator %}
                     <a class="nav-item nav-link active" href="{% url 'creator_create' %}">Přidat tvůrce</a>
                 {% endif %}
 
